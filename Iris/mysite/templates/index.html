@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API in Django</title>
+    <style>
+      body {
+        background-color: #43acf7;
+      }
+      .center-text {
+        display: flex;
+        justify-content: center;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="center-text">MY ML Project</h1>
+
+    <div class="container">
+      <form action="{% url 'home' %}" id="form">
+        Sepal Length : <input type="text" id="sl" required name="sl" /> <br />
+        <br />
+        Sepal Width: <input type="text" id="sw" required name="sw" /> <br />
+        <br />
+        Petal Length: <input type="text" id="pl" required name="pl" /> <br />
+        <br />
+        Petal Width: <input type="text" id="pw" required name="pw" /> <br />
+        <br />
+
+        <div class="container">
+          <input type="submit" name="" value="submit" />
+        </div>
+      </form>
+    </div>
+    <div class="container1"></div>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $("form").on("submit", (e) => {
+        e.preventDefault();
+        $.ajax({
+          url: "/result/ajax/",
+          data: {
+            sl: document.getElementById("sl").value,
+            sw: document.getElementById("sw").value,
+            pl: document.getElementById("pl").value,
+            pw: document.getElementById("pw").value,
+          },
+          success: function (data) {
+            console.log(data);
+            $(".container1").html(`<h3>The result is: ${data.ans}</h3>`);
+          },error:(err)=> console.log(err)
+        });
+      });
+    </script>
+  </body>
+</html>
